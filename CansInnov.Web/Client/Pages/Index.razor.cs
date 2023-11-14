@@ -5,6 +5,7 @@ using BlazorApp1.Shared;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Application.Features.Events.Queries;
 using CansInnov.Client.Components;
+using CansInnov.Persistence.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -12,8 +13,7 @@ namespace CansInnov.Client.Pages
 {
     public partial class Index
     {
-        //[Inject]
-        //public IMediator Mediator { get; set; }
+        private List<EventDto>? _events;
 
         [Inject]
         public HttpClient Http { get; set; }
@@ -27,7 +27,15 @@ namespace CansInnov.Client.Pages
         [Inject]
         public NotificationService NotificationService { get; set; }
 
-        public List<EventDto>? Events { get; set; }
+        public List<EventDto>? Events
+        {
+            get { return _events; }
+            set
+            {
+                _events = value;
+                StateHasChanged();
+            }
+        }
 
         public void EventClicked(Guid eventId)
         {
@@ -40,25 +48,18 @@ namespace CansInnov.Client.Pages
 
             if (created)
             {
-                Events = null;
-                StateHasChanged();
-                NotificationService.Notify(new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Success,
-                    Summary = "Evènement créé",
-                    Duration = 4000
-                });
                 Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
-                StateHasChanged();
             }
-            else
+        }
+
+        public async void UpdateEventClicked(EventDto @event)
+        {
+            bool created = await DialogService.OpenAsync<EventForm>("Créer Evènement",
+                new Dictionary<string, object> { { "Event", @event }, { "ExistingEvent", true } });
+
+            if (created)
             {
-                NotificationService.Notify(new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = "Une erreur est survenue",
-                    Duration = 4000
-                });
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
             }
         }
 
@@ -67,8 +68,6 @@ namespace CansInnov.Client.Pages
             HttpResponseMessage response = await Http.DeleteAsync($"Event/{id}");
             if (response.IsSuccessStatusCode)
             {
-                Events = null;
-                StateHasChanged();
                 NotificationService.Notify(new NotificationMessage
                 {
                     Severity = NotificationSeverity.Success,
@@ -76,7 +75,6 @@ namespace CansInnov.Client.Pages
                     Duration = 4000
                 });
                 Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
-                StateHasChanged();
             }
             else
             {

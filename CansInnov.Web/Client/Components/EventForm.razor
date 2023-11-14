@@ -1,7 +1,6 @@
-﻿@using CansInnov.Application.Features.Events.Commands;
-@using CansInnov.Application.Features.Events.Dtos;
+﻿@using CansInnov.Application.Features.Events.Dtos;
 
-<RadzenTemplateForm Data="@Event" Submit="@((CreateEventCommand args) => { Submit(args); })">
+<RadzenTemplateForm Data="@Event" Submit="@((EventDto args) => { Submit(args); })">
     <RadzenStack Gap="1rem">
         <RadzenRow AlignItems="AlignItems.Center" class="mb-2">
             <RadzenColumn Size="12" SizeMD="4">

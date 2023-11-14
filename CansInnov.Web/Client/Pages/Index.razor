@@ -31,7 +31,10 @@ else
                             <RadzenText TextStyle="TextStyle.Overline" class="rz-display-flex rz-mt-4 rz-mb-0">Date de Fin</RadzenText>
                             <RadzenText TextStyle="TextStyle.Body1"><b>@evt.DateFin</b></RadzenText>
                         </RadzenStack>
-                        <RadzenText TextAlign="TextAlign.End" @onclick="() => DeleteEventClicked(evt.Id)">X</RadzenText>
+                        <RadzenStack>
+                            <RadzenIcon Icon="delete" @onclick="() => DeleteEventClicked(evt.Id)" />
+                            <RadzenIcon Icon="edit_square" @onclick="() => UpdateEventClicked(evt)" />
+                        </RadzenStack>
                     </RadzenStack>
                 </RadzenCard>
                 @*</div>*@
