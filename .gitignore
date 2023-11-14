@@ -2,22 +2,6 @@
 # Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/BlazorApp1/DesignTimeBuild
-/.vs/BlazorApp1/FileContentIndex
-/.vs/CansInnov/config
-/.vs/CansInnov/DesignTimeBuild
-/.vs/CansInnov/FileContentIndex
-/.vs/CansInnov/v17
-/.vs/ProjectEvaluation
-/CansInnov.Application/bin/Debug/net6.0
-/CansInnov.Application/obj/Debug/net6.0
-/CansInnov.Application/obj
-/CansInnov.Persistence/bin/Debug/net6.0
-/CansInnov.Persistence/obj
-/CansInnov.Web/Client/bin/Debug/net6.0
-/CansInnov.Web/Client/obj
-/CansInnov.Web/Server/bin/Debug/net6.0
-/CansInnov.Web/Server/obj
-/CansInnov.Web/Shared/bin/Debug/net6.0
-/CansInnov.Web/Shared/obj
-/obj
+/.vs
+**/bin
+**/obj
