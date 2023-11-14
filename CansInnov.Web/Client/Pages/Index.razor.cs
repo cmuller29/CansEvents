@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.Tracing;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using BlazorApp1.Shared;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Application.Features.Events.Queries;
@@ -23,21 +24,73 @@ namespace CansInnov.Client.Pages
         [Inject]
         public DialogService DialogService { get; set; }
 
+        [Inject]
+        public NotificationService NotificationService { get; set; }
+
         public List<EventDto>? Events { get; set; }
 
-        public void CardClicked(Guid eventId)
+        public void EventClicked(Guid eventId)
         {
             NavigationManager.NavigateTo($"event/{eventId}/ateliers");
         }
 
         public async void CreateEventClicked()
         {
-            await DialogService.OpenAsync<EventForm>("Créer Evènement");
+            bool created = await DialogService.OpenAsync<EventForm>("Créer Evènement");
+
+            if (created)
+            {
+                Events = null;
+                StateHasChanged();
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Evènement créé",
+                    Duration = 4000
+                });
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+                StateHasChanged();
+            }
+            else
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Une erreur est survenue",
+                    Duration = 4000
+                });
+            }
+        }
+
+        public async void DeleteEventClicked(Guid id)
+        {
+            HttpResponseMessage response = await Http.DeleteAsync($"Event/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                Events = null;
+                StateHasChanged();
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Evènement supprimé",
+                    Duration = 4000
+                });
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+                StateHasChanged();
+            }
+            else
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Une erreur est survenue",
+                    Duration = 4000
+                });
+            }
         }
 
         protected override async Task OnInitializedAsync()
         {
-            //Events = await Mediator.Send(new GetEventListQuery());
             Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
         }
     }

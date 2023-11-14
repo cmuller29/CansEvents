@@ -22,9 +22,15 @@ namespace CansInnov.Client.Components
             await Http.PostAsJsonAsync("Event", Event);
         }
 
+        public async void Submit(CreateEventCommand args)
+        {
+            HttpResponseMessage response = await Http.PostAsJsonAsync("Event", args);
+            DialogService.Close(response.IsSuccessStatusCode);
+        }
+
         public void Cancel()
         {
-            DialogService.Close();
+            DialogService.Close(false);
         }
     }
 }

@@ -31,6 +31,13 @@ namespace CansInnov.Server.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEvent(Guid id)
+        {
+            await _mediator.Send(new DeleteEventCommand { Id = id });
+            return Ok();
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetEventDetail(Guid id)
         {
