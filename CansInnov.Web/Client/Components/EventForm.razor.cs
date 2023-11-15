@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
 using AutoMapper;
 using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
@@ -56,6 +57,7 @@ namespace CansInnov.Client.Components
                 {
                     Severity = NotificationSeverity.Error,
                     Summary = "Une erreur est survenue",
+                    Detail = await response.Content.ReadAsStringAsync(),
                     Duration = 4000
                 });
             }

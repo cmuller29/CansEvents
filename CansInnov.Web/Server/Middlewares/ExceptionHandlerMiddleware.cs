@@ -1,5 +1,5 @@
 ﻿using CansInnov.Application.Exceptions;
-using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using System.Text.Json;
 
 namespace CansInnov.Server.Middlewares
@@ -29,7 +29,7 @@ namespace CansInnov.Server.Middlewares
                 {
                     case ValidationException validationException:
                         context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                        response = validationException.ValidationResult.ErrorMessage;
+                        response = JsonSerializer.Serialize(validationException.Errors.Select(x => x.ErrorMessage));
                         _logger.LogError($"Erreur de validation de la commande {response}");
                         break;
                     case NotFoundException:

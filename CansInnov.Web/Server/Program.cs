@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using CansInnov.Persistence;
 using CansInnov.Application;
+using CansInnov.Server.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,9 +34,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

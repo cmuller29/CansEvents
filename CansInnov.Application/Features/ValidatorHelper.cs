@@ -19,7 +19,7 @@ namespace CansInnov.Application.Features
             _serviceProvider = serviceProvider;
         }
 
-        public async Task ValidateAsync(Command command, CancellationToken cancellationToken)
+        public async Task<ValidationResult> ValidateAsync(Command command, CancellationToken cancellationToken)
         {
             Validator validator = ActivatorUtilities.CreateInstance<Validator>(_serviceProvider);
 
@@ -28,6 +28,8 @@ namespace CansInnov.Application.Features
             {
                 throw new ValidationException(result.Errors);
             }
+
+            return result;
         }
     }
 }
