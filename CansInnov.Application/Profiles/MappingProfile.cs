@@ -17,7 +17,6 @@ namespace CansInnov.Application.Profiles
             CreateMap<Event, EventDto>();
             CreateMap<CreateEventCommand, Event>().ReverseMap();
             CreateMap<UpdateEventCommand, Event>().ReverseMap();
-            CreateMap<DeleteEventCommand, Event>().ReverseMap();
         }
     }
 }

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\CansInnov.Persistence\CansInnov.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Ateliers\Commands\" />
+  </ItemGroup>
+
 </Project>

@@ -8,7 +8,6 @@ namespace CansInnov.Client.Profiles
     {
         public MappingProfile()
         {
-
             CreateMap<EventDto, CreateEventCommand>();
             CreateMap<EventDto, UpdateEventCommand>();
         }

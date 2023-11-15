@@ -39,7 +39,7 @@ namespace CansInnov.Client.Pages
 
         public void EventClicked(Guid eventId)
         {
-            NavigationManager.NavigateTo($"event/{eventId}/ateliers");
+            NavigationManager.NavigateTo($"event/{eventId}/atelier");
         }
 
         public async void CreateEventClicked()
@@ -48,24 +48,24 @@ namespace CansInnov.Client.Pages
 
             if (created)
             {
-                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
             }
         }
 
         public async void UpdateEventClicked(EventDto @event)
         {
-            bool created = await DialogService.OpenAsync<EventForm>("Créer Evènement",
-                new Dictionary<string, object> { { "Event", @event }, { "ExistingEvent", true } });
+            bool created = await DialogService.OpenAsync<EventForm>($"Modifier Evènement {@event.Titre}",
+                new Dictionary<string, object> { { nameof(EventForm.Event), @event }, { nameof(EventForm.ExistingEvent), true } });
 
             if (created)
             {
-                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
             }
         }
 
         public async void DeleteEventClicked(Guid id)
         {
-            HttpResponseMessage response = await Http.DeleteAsync($"Event/{id}");
+            HttpResponseMessage response = await Http.DeleteAsync($"api/Event/{id}");
             if (response.IsSuccessStatusCode)
             {
                 NotificationService.Notify(new NotificationMessage
@@ -74,7 +74,7 @@ namespace CansInnov.Client.Pages
                     Summary = "Evènement supprimé",
                     Duration = 4000
                 });
-                Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+                Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
             }
             else
             {
@@ -89,7 +89,7 @@ namespace CansInnov.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Events = await Http.GetFromJsonAsync<List<EventDto>>("Event");
+            Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
         }
     }
 }

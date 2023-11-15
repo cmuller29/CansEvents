@@ -31,7 +31,7 @@ namespace CansInnov.Client.Components
 
         public async void Submit()
         {
-            await Http.PostAsJsonAsync("Event", Event);
+            await Http.PostAsJsonAsync("api/Event", Event);
         }
 
         public async void Submit(EventDto args)
@@ -39,11 +39,11 @@ namespace CansInnov.Client.Components
             HttpResponseMessage response;
             if (ExistingEvent)
             {
-                response = await Http.PutAsJsonAsync($"Event/{args.Id}", Mapper.Map<UpdateEventCommand>(args));
+                response = await Http.PutAsJsonAsync($"api/Event", Mapper.Map<UpdateEventCommand>(args));
             }
             else
             {
-                response = await Http.PostAsJsonAsync("Event", Mapper.Map<CreateEventCommand>(args));
+                response = await Http.PostAsJsonAsync("api/Event", Mapper.Map<CreateEventCommand>(args));
             }
 
             if (response.IsSuccessStatusCode)
