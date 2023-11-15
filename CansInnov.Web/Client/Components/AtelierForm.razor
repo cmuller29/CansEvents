@@ -32,16 +32,16 @@
         </RadzenRow>
         <RadzenRow AlignItems="AlignItems.Center" class="mb-2">
             <RadzenColumn Size="12" SizeMD="4">
-                <RadzenLabel Text="Description *" />
+                <RadzenLabel Text="Intervenant *" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="8">
                 <RadzenTextBox Style="width: 100%; display: block" Name="NomIntervenant" @bind-Value="Atelier.NomIntervenant" />
-                <RadzenRequiredValidator Component="NomIntervenant" Text="Une description est requise" Popup=false Style="position: absolute" />
+                <RadzenRequiredValidator Component="NomIntervenant" Text="Un intervenant est requise" Popup=false Style="position: absolute" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow AlignItems="AlignItems.Center" class="mb-2">
             <RadzenColumn Size="12" SizeMD="4">
-                <RadzenLabel Text="Description *" />
+                <RadzenLabel Text="Lieu *" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="8">
                 <RadzenTextBox Style="width: 100%; display: block" Name="Lieu" @bind-Value="Atelier.Lieu" />
@@ -50,7 +50,7 @@
         </RadzenRow>
         <RadzenRow AlignItems="AlignItems.Center" class="mb-2">
             <RadzenColumn Size="12" SizeMD="4">
-                <RadzenLabel Text="Description *" />
+                <RadzenLabel Text="Lien" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="8">
                 <RadzenTextBox Style="width: 100%; display: block" Name="LienReunion" @bind-Value="Atelier.LienReunion" />
@@ -58,7 +58,7 @@
         </RadzenRow>
         <RadzenRow AlignItems="AlignItems.Center" class="mb-2">
             <RadzenColumn Size="12" SizeMD="4">
-                <RadzenLabel Text="Description *" />
+                <RadzenLabel Text="Nb Participants max *" />
             </RadzenColumn>
             <RadzenColumn Size="12" SizeMD="8">
                 <RadzenNumeric Style="width: 100%; display: block" Name="NbParticipantMax" @bind-Value="Atelier.NbParticipantMax" />

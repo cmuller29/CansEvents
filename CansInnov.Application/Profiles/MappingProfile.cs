@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CansInnov.Application.Features.Ateliers.Commands;
 using CansInnov.Application.Features.Ateliers.Dtos;
 using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
@@ -20,6 +21,7 @@ namespace CansInnov.Application.Profiles
             CreateMap<UpdateEventCommand, Event>().ReverseMap();
 
             CreateMap<Atelier, AtelierDto>();
+            CreateMap<CreateAtelierCommand, Atelier>();
         }
     }
 }
