@@ -1,4 +1,5 @@
-﻿using CansInnov.Application.Features.Ateliers.Dtos;
+﻿using System.Net.Http.Json;
+using CansInnov.Application.Features.Ateliers.Dtos;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -6,10 +7,28 @@ namespace CansInnov.Client.Pages
 {
     public partial class AteliersByEvent
     {
+        private List<AteliersByEventIdDto> _ateliers;
+
         [Parameter]
         public string EventId { get; set; }
 
-        public List<AteliersByEventIdDto> Ateliers { get; set; }
+        [Inject]
+        public HttpClient Http { get; set; }
+
+        public List<AteliersByEventIdDto> Ateliers
+        {
+            get { return _ateliers; }
+            set
+            {
+                _ateliers = value;
+                StateHasChanged();
+            }
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            Ateliers = await Http.GetFromJsonAsync<List<AteliersByEventIdDto>>($"api/Event/{EventId}/atelier");
+        }
 
         public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AteliersByEventIdDto> args)
         {
