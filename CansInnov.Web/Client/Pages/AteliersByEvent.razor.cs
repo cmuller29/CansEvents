@@ -1,10 +1,14 @@
 ﻿using CansInnov.Application.Features.Ateliers.Dtos;
+using Microsoft.AspNetCore.Components;
 using Radzen;
 
 namespace CansInnov.Client.Pages
 {
     public partial class AteliersByEvent
     {
+        [Parameter]
+        public string EventId { get; set; }
+
         public List<AteliersByEventIdDto> Ateliers { get; set; }
 
         public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AteliersByEventIdDto> args)
