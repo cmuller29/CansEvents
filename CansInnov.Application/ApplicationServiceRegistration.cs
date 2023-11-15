@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CansInnov.Application.Features;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CansInnov.Application
@@ -20,6 +22,10 @@ namespace CansInnov.Application
                 configuration.Lifetime = ServiceLifetime.Scoped;
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddSingleton(typeof(ValidatorHelper<,>));
 
             return services;
         }

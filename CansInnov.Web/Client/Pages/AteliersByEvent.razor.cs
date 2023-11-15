@@ -39,7 +39,7 @@ namespace CansInnov.Client.Pages
         {
             bool created = await DialogService.OpenAsync<AtelierForm>("Créer Atelier",
                 new Dictionary<string, object>() { 
-                    { nameof(AtelierForm.Atelier), new AtelierDto() { EventId = Guid.Parse(EventId) } } 
+                    { nameof(AtelierForm.Atelier), new AtelierDto { EventId = Guid.Parse(EventId) } } 
                 });
 
             if (created)
