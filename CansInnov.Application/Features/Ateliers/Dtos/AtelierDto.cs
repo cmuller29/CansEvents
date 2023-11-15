@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CansInnov.Application.Features.Ateliers.Dtos
 {
-    public class AteliersByEventIdDto : BaseAtelier
+    public class AtelierDto : BaseAtelier
     {
     }
 }

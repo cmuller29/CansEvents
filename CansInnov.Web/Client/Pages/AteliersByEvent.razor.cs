@@ -7,7 +7,7 @@ namespace CansInnov.Client.Pages
 {
     public partial class AteliersByEvent
     {
-        private List<AteliersByEventIdDto> _ateliers;
+        private List<AtelierDto> _ateliers;
 
         [Parameter]
         public string EventId { get; set; }
@@ -15,7 +15,7 @@ namespace CansInnov.Client.Pages
         [Inject]
         public HttpClient Http { get; set; }
 
-        public List<AteliersByEventIdDto> Ateliers
+        public List<AtelierDto> Ateliers
         {
             get { return _ateliers; }
             set
@@ -27,10 +27,10 @@ namespace CansInnov.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Ateliers = await Http.GetFromJsonAsync<List<AteliersByEventIdDto>>($"api/Event/{EventId}/atelier");
+            Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
         }
 
-        public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AteliersByEventIdDto> args)
+        public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AtelierDto> args)
         {
             //var data = await DialogService
             //  .OpenAsync<AtelierDetail>(

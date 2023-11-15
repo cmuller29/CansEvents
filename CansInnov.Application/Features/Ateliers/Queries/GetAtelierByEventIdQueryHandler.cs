@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CansInnov.Application.Features.Ateliers.Queries
 {
-    public class GetAtelierByEventIdQueryHandler : IRequestHandler<GetAtelierByEventIdQuery, List<AteliersByEventIdDto>>
+    public class GetAtelierByEventIdQueryHandler : IRequestHandler<GetAtelierByEventIdQuery, List<AtelierDto>>
     {
         private readonly CansEventsDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -23,13 +23,13 @@ namespace CansInnov.Application.Features.Ateliers.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<AteliersByEventIdDto>> Handle(GetAtelierByEventIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<AtelierDto>> Handle(GetAtelierByEventIdQuery request, CancellationToken cancellationToken)
         {
             List<Atelier> ateliers = await _dbContext.Atelier
                 .Where(x => x.EventId == request.EventId)
                 .ToListAsync(cancellationToken);
 
-            return _mapper.Map<List<AteliersByEventIdDto>>(ateliers);
+            return _mapper.Map<List<AtelierDto>>(ateliers);
         }
     }
 }

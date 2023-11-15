@@ -19,7 +19,7 @@ namespace CansInnov.Application.Profiles
             CreateMap<CreateEventCommand, Event>().ReverseMap();
             CreateMap<UpdateEventCommand, Event>().ReverseMap();
 
-            CreateMap<Atelier, AteliersByEventIdDto>();
+            CreateMap<Atelier, AtelierDto>();
         }
     }
 }

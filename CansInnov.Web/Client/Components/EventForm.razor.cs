@@ -29,11 +29,6 @@ namespace CansInnov.Client.Components
         [Inject]
         public NotificationService NotificationService { get; set; }
 
-        public async void Submit()
-        {
-            await Http.PostAsJsonAsync("api/Event", Event);
-        }
-
         public async void Submit(EventDto args)
         {
             HttpResponseMessage response;

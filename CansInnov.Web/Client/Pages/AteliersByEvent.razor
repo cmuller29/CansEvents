@@ -3,7 +3,7 @@
 
 <PageTitle>Ateliers</PageTitle>
 
-<RadzenScheduler TItem="AteliersByEventIdDto" Data="@Ateliers" StartProperty="DateDebut"
+<RadzenScheduler TItem="AtelierDto" Data="@Ateliers" StartProperty="DateDebut"
                  EndProperty="DateFin" TextProperty="Titre" SelectedIndex="1"
                  AppointmentSelect=@OnAppointmentSelect>
     <Template Context="data">

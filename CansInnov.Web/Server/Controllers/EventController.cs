@@ -54,9 +54,9 @@ namespace CansInnov.Server.Controllers
         }
 
         [HttpGet("{id}/atelier")]
-        public async Task<ActionResult<List<AteliersByEventIdDto>>> GetAtelierByEventId(Guid id)
+        public async Task<ActionResult<List<AtelierDto>>> GetAtelierByEventId(Guid id)
         {
-            List<AteliersByEventIdDto> ateliers = await _mediator.Send(new GetAtelierByEventIdQuery { EventId = id });
+            List<AtelierDto> ateliers = await _mediator.Send(new GetAtelierByEventIdQuery { EventId = id });
             return Ok(ateliers);
         }
     }
