@@ -27,6 +27,8 @@ namespace CansInnov.Client.Components
         [Parameter]
         public bool ExistingAtelier { get; set; } = false;
 
+        public bool DeleteButtonDisabled => !ExistingAtelier;
+
         public async void Submit(AtelierDto args)
         {
             HttpResponseMessage response;
@@ -64,6 +66,32 @@ namespace CansInnov.Client.Components
         public void Cancel()
         {
             DialogService.Close(false);
+        }
+
+        public async Task Delete()
+        {
+            HttpResponseMessage response = await Http.DeleteAsync($"api/Atelier/{Atelier.Id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Atelier supprimé",
+                    Duration = 4000
+                });
+            }
+            else
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Une erreur est survenue",
+                    Duration = 4000
+                });
+            }
+
+            DialogService.Close(response.IsSuccessStatusCode);
         }
     }
 }
