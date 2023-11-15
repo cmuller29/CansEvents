@@ -2,6 +2,7 @@
 using CansInnov.Application.Features.Ateliers.Dtos;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Client.Components;
+using CansInnov.Persistence.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -37,12 +38,12 @@ namespace CansInnov.Client.Pages
 
         public async void CreateAtelierClicked()
         {
-            bool created = await DialogService.OpenAsync<AtelierForm>("Créer Atelier",
+            bool? created = await DialogService.OpenAsync<AtelierForm>("Créer Atelier",
                 new Dictionary<string, object>() { 
                     { nameof(AtelierForm.Atelier), new AtelierDto { EventId = Guid.Parse(EventId) } } 
                 });
 
-            if (created)
+            if (created.HasValue && created.Value)
             {
                 Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
             }
@@ -50,35 +51,16 @@ namespace CansInnov.Client.Pages
 
         public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AtelierDto> args)
         {
-            //var data = await DialogService
-            //  .OpenAsync<AtelierDetail>(
-            //    "Edit Appointment",
-            //    new Dictionary<string, object> { { "Appointment", args.Data } },
-            //    new DialogOptions() { CloseDialogOnOverlayClick = true });
+            bool? updated = await DialogService.OpenAsync<AtelierForm>($"Atelier {args.Data.Titre}",
+                new Dictionary<string, object> { 
+                    { nameof(AtelierForm.Atelier), args.Data }, 
+                    { nameof(AtelierForm.ExistingAtelier), true } 
+                });
 
-            //NotificationMessage message;
-            //if (data)
-            //{
-            //    message = new()
-            //    {
-            //        Severity = NotificationSeverity.Success,
-            //        Summary = "Inscrit avec succès",
-            //        Detail = $"Vous êtes bien inscrit à l'atelier {args.Data.Titre}",
-            //        Duration = 4000
-            //    };
-            //}
-            //else
-            //{
-            //    message = new()
-            //    {
-            //        Severity = NotificationSeverity.Error,
-            //        Summary = "Impossible de s'inscrire",
-            //        Duration = 4000
-            //    };
-            //}
-
-            //await Task.Delay(500);
-            //notificationService.Notify(message);
+            if (updated.HasValue && updated.Value)
+            {
+                Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
+            }
         }
     }
 }

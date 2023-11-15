@@ -22,6 +22,7 @@ namespace CansInnov.Application.Profiles
 
             CreateMap<Atelier, AtelierDto>();
             CreateMap<CreateAtelierCommand, Atelier>();
+            CreateMap<UpdateAtelierCommand, Atelier>();
         }
     }
 }

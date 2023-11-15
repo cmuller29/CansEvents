@@ -14,6 +14,7 @@ namespace CansInnov.Client.Profiles
             CreateMap<EventDto, UpdateEventCommand>();
 
             CreateMap<AtelierDto, CreateAtelierCommand>();
+            CreateMap<AtelierDto, UpdateAtelierCommand>();
         }
     }
 }

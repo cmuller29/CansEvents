@@ -44,9 +44,9 @@ namespace CansInnov.Client.Pages
 
         public async void CreateEventClicked()
         {
-            bool created = await DialogService.OpenAsync<EventForm>("Créer Evènement");
+            bool? created = await DialogService.OpenAsync<EventForm>("Créer Evènement");
 
-            if (created)
+            if (created.HasValue && created.Value)
             {
                 Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
             }
@@ -54,10 +54,10 @@ namespace CansInnov.Client.Pages
 
         public async void UpdateEventClicked(EventDto @event)
         {
-            bool created = await DialogService.OpenAsync<EventForm>($"Modifier Evènement {@event.Titre}",
+            bool? updated = await DialogService.OpenAsync<EventForm>($"Modifier Evènement {@event.Titre}",
                 new Dictionary<string, object> { { nameof(EventForm.Event), @event }, { nameof(EventForm.ExistingEvent), true } });
 
-            if (created)
+            if (updated.HasValue && updated.Value)
             {
                 Events = await Http.GetFromJsonAsync<List<EventDto>>("api/Event");
             }

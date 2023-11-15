@@ -32,7 +32,7 @@ namespace CansInnov.Client.Components
             HttpResponseMessage response;
             if (ExistingAtelier)
             {
-                response = await Http.PutAsJsonAsync($"api/Atelier", Mapper.Map<CreateAtelierCommand>(args));
+                response = await Http.PutAsJsonAsync($"api/Atelier", Mapper.Map<UpdateAtelierCommand>(args));
             }
             else
             {
