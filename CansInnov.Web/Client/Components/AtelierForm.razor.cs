@@ -4,7 +4,6 @@ using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using static System.Net.WebRequestMethods;
 
 namespace CansInnov.Client.Components
 {
@@ -13,6 +12,7 @@ namespace CansInnov.Client.Components
         [Inject]
         public DialogService DialogService { get; set; }
 
+        [Parameter]
         public AtelierDto Atelier { get; set; }
 
         public async void Submit(AtelierDto args)

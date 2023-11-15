@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Json;
 using CansInnov.Application.Features.Ateliers.Dtos;
+using CansInnov.Application.Features.Events.Dtos;
+using CansInnov.Client.Components;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -15,6 +17,9 @@ namespace CansInnov.Client.Pages
         [Inject]
         public HttpClient Http { get; set; }
 
+        [Inject]
+        public DialogService DialogService { get; set; }
+
         public List<AtelierDto> Ateliers
         {
             get { return _ateliers; }
@@ -28,6 +33,16 @@ namespace CansInnov.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
+        }
+
+        public async void CreateAtelierClicked()
+        {
+            bool created = await DialogService.OpenAsync<AtelierForm>("Créer Atelier");
+
+            if (created)
+            {
+                Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
+            }
         }
 
         public async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AtelierDto> args)
