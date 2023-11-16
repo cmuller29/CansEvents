@@ -4,12 +4,14 @@ using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Application.Features.Events.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CansInnov.Server.Controllers
 {
     [ApiController()]
     [Route("api/[controller]")]
+    [Authorize]
     public class EventController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,6 +29,7 @@ namespace CansInnov.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateEvent(CreateEventCommand createEventCommand)
         {
             await _mediator.Send(createEventCommand);
