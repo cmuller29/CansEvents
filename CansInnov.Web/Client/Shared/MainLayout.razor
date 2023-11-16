@@ -5,11 +5,11 @@
     [Inject]
     HttpClient Http { get; set; }
 
-    ApplicationUser User { get; set; }
+    UserInfo User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        User = await Http.GetFromJsonAsync<ApplicationUser>("api/User", CancellationToken.None);
+        User = await Http.GetFromJsonAsync<UserInfo>("api/User", CancellationToken.None);
     }
 }
 
@@ -20,7 +20,10 @@
 
     <main>
         <div class="top-row px-4">
-            <span class="title">@User?.Matricule</span>
+            @if (User != null)
+            {
+                <span class="title">Bonjour @User?.UserMatricule</span>
+            }
         </div>
         <article class="content px-4">
             @Body
