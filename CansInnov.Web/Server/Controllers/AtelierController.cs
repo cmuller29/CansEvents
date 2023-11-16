@@ -36,5 +36,12 @@ namespace CansInnov.Server.Controllers
             await _mediator.Send(new DeleteAtelierCommand { Id = id });
             return Ok();
         }
+
+        [HttpPost("subscribe")]
+        public async Task<IActionResult> SubscribreToAtelier(SubscribeToAtelierCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
     }
 }

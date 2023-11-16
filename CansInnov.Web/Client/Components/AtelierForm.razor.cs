@@ -1,8 +1,11 @@
 ﻿using System.Net.Http.Json;
 using AutoMapper;
+using Blazored.LocalStorage;
 using CansInnov.Application.Features.Ateliers.Commands;
 using CansInnov.Application.Features.Ateliers.Dtos;
+using CansInnov.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Radzen;
 
 namespace CansInnov.Client.Components
@@ -20,6 +23,9 @@ namespace CansInnov.Client.Components
 
         [Inject]
         public IMapper Mapper { get; set; }
+
+        [Inject]
+        public ILocalStorageService LocalStorage { get; set; }
 
         [Parameter]
         public AtelierDto Atelier { get; set; } = new AtelierDto(); 
@@ -47,6 +53,38 @@ namespace CansInnov.Client.Components
                 {
                     Severity = NotificationSeverity.Success,
                     Summary = ExistingAtelier ? "Atelier mis à jour" : "Atelier créé",
+                    Duration = 4000
+                });
+            }
+            else
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = "Une erreur est survenue",
+                    Duration = 4000
+                });
+            }
+
+            DialogService.Close(response.IsSuccessStatusCode);
+        }
+
+        public async void Subscribe()
+        {
+            UserInfo user = await LocalStorage.GetItemAsync<UserInfo>("currentuser");
+            HttpResponseMessage response = await Http.PostAsJsonAsync("api/Atelier/subscribe", new SubscribeToAtelierCommand
+            {
+                AtelierId = Atelier.Id,
+                Matricule = user.UserMatricule
+            });
+
+            if (response.IsSuccessStatusCode)
+            {
+                NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Succès",
+                    Detail = $"Vous êtes bien inscrit à {Atelier.Titre}",
                     Duration = 4000
                 });
             }

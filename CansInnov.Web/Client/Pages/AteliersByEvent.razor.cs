@@ -1,10 +1,13 @@
 ﻿using System.Net.Http.Json;
+using Blazored.LocalStorage;
 using CansInnov.Application.Features.Ateliers.Dtos;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Client.Components;
 using CansInnov.Persistence.Models;
+using CansInnov.Shared;
 using Microsoft.AspNetCore.Components;
 using Radzen;
+using Radzen.Blazor.Rendering;
 
 namespace CansInnov.Client.Pages
 {
@@ -21,6 +24,9 @@ namespace CansInnov.Client.Pages
         [Inject]
         public DialogService DialogService { get; set; }
 
+        [Inject]
+        ILocalStorageService LocalStorage { get; set; }
+
         public List<AtelierDto> Ateliers
         {
             get { return _ateliers; }
@@ -31,8 +37,11 @@ namespace CansInnov.Client.Pages
             }
         }
 
+        public UserInfo User { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+            User = await LocalStorage.GetItemAsync<UserInfo>("currentuser");
             Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
         }
 
@@ -46,6 +55,14 @@ namespace CansInnov.Client.Pages
             if (created.HasValue && created.Value)
             {
                 Ateliers = await Http.GetFromJsonAsync<List<AtelierDto>>($"api/Event/{EventId}/atelier");
+            }
+        }
+
+        public void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<AtelierDto> args)
+        {
+            if (args.Data.Participants.Any(x => x == User.UserMatricule))
+            {
+                args.Attributes["style"] = "background: red";
             }
         }
 

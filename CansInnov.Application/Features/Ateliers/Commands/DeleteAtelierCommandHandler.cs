@@ -24,10 +24,10 @@ namespace CansInnov.Application.Features.Ateliers.Commands
 
         public async Task Handle(DeleteAtelierCommand request, CancellationToken cancellationToken)
         {
-            Atelier atelier = await _dbContext.Atelier.FindAsync(new object[] { request.Id }, cancellationToken)
+            Atelier atelier = await _dbContext.Ateliers.FindAsync(new object[] { request.Id }, cancellationToken)
                 ?? throw new NotFoundException(nameof(Atelier), request.Id);
 
-            _dbContext.Atelier.Remove(atelier);
+            _dbContext.Ateliers.Remove(atelier);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

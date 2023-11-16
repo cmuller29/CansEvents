@@ -4,6 +4,7 @@ using CansInnov.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CansInnov.Persistence.Migrations
 {
     [DbContext(typeof(CansEventsDbContext))]
-    partial class CansEventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231116134619_AddParticipant")]
+    partial class AddParticipant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,11 +91,11 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("054144c8-5744-4441-a685-6e19313b996e"),
+                            Id = new Guid("7ff10674-cc5a-400a-a824-9d1fb1c1cfab"),
                             DateDebut = new DateTime(2023, 10, 15, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DateFin = new DateTime(2023, 10, 15, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "DEscription",
-                            EventId = new Guid("6d8faf40-3165-4a50-ba4a-fa0fb50312eb"),
+                            EventId = new Guid("edd6a8a1-27bd-4e68-a0a9-1e3311373e02"),
                             LienReunion = "lien",
                             Lieu = "lieu",
                             NbParticipantMax = 10,
@@ -143,9 +145,9 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6d8faf40-3165-4a50-ba4a-fa0fb50312eb"),
-                            DateDebut = new DateTime(2023, 9, 16, 14, 47, 25, 261, DateTimeKind.Local).AddTicks(2891),
-                            DateFin = new DateTime(2023, 10, 16, 14, 47, 25, 261, DateTimeKind.Local).AddTicks(2938),
+                            Id = new Guid("edd6a8a1-27bd-4e68-a0a9-1e3311373e02"),
+                            DateDebut = new DateTime(2023, 9, 16, 14, 46, 19, 712, DateTimeKind.Local).AddTicks(5738),
+                            DateFin = new DateTime(2023, 10, 16, 14, 46, 19, 712, DateTimeKind.Local).AddTicks(5786),
                             Description = "DEscription",
                             Titre = "Titre"
                         });
@@ -155,24 +157,20 @@ namespace CansInnov.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ID");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AtelierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ID_ATELIER");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Matricule")
                         .IsRequired()
-                        .HasMaxLength(7)
-                        .HasColumnType("CHAR(7)")
-                        .HasColumnName("MATRICULE");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AtelierId");
 
-                    b.ToTable("T_PARTICIPANT_ATELIER", (string)null);
+                    b.ToTable("ParticipantAtelier");
                 });
 
             modelBuilder.Entity("CansInnov.Persistence.Models.Atelier", b =>

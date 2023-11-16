@@ -14,12 +14,13 @@ namespace CansInnov.Persistence
         }
 
         public DbSet<Event> Events { get; set; } = default!;
-        public DbSet<Atelier> Atelier { get; set; } = default!;
+        public DbSet<Atelier> Ateliers { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ConfigureEvent();
             modelBuilder.ConfigureAtelier();
+            modelBuilder.ConfigureParticipantAtelier();
             
             Guid eventId = Guid.NewGuid();
             modelBuilder.Entity<Event>()

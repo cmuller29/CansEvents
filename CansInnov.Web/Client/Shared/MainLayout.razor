@@ -1,15 +1,20 @@
-﻿@using CansInnov.Shared;
+﻿@using Blazored.LocalStorage;
+@using CansInnov.Shared;
 @inherits LayoutComponentBase
 
 @code {
     [Inject]
     HttpClient Http { get; set; }
 
+    [Inject]
+    ILocalStorageService LocalStorage { get; set; }
+
     UserInfo User { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         User = await Http.GetFromJsonAsync<UserInfo>("api/User", CancellationToken.None);
+        await LocalStorage.SetItemAsync("currentuser", User);
     }
 }
 

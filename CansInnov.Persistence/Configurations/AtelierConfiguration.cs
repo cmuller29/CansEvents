@@ -18,6 +18,10 @@ namespace CansInnov.Persistence.Configurations
                 .HasKey("Id");
 
             modelBuilder.Entity<Atelier>()
+                .HasMany(x => x.Participants)
+                .WithOne(x => x.Atelier);
+
+            modelBuilder.Entity<Atelier>()
               .HasOne(x => x.Event)
               .WithMany(x => x.Ateliers)
               .HasForeignKey(x => x.EventId)

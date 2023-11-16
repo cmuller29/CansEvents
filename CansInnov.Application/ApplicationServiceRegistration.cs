@@ -23,7 +23,7 @@ namespace CansInnov.Application
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic));
 
             services.AddSingleton(typeof(ValidatorHelper<,>));
 

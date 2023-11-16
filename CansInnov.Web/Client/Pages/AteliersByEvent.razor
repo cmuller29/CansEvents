@@ -8,7 +8,7 @@
 </RadzenStack>
 <RadzenScheduler TItem="AtelierDto" Data="@Ateliers" StartProperty="DateDebut"
                  EndProperty="DateFin" TextProperty="Titre"
-                 AppointmentSelect=@OnAppointmentSelect>
+                 AppointmentSelect=@OnAppointmentSelect AppointmentRender="@OnAppointmentRender">
     <Template Context="data">
         <strong>@data.Titre</strong>
     </Template>

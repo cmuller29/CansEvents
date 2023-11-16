@@ -24,7 +24,7 @@ namespace CansInnov.Application.Features.Ateliers.Commands
         public async Task Handle(CreateAtelierCommand request, CancellationToken cancellationToken)
         {
             Atelier atelier = _mapper.Map<Atelier>(request);
-            _dbContext.Atelier.Add(atelier);
+            _dbContext.Ateliers.Add(atelier);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

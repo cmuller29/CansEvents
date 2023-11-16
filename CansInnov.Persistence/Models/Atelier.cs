@@ -21,5 +21,6 @@ namespace CansInnov.Persistence.Models
         public DateTime DateFin { get; set; }
 
         public Event Event { get; set; } = default!;
+        public ICollection<ParticipantAtelier> Participants { get; set; } = default!;
     }
 }

@@ -25,11 +25,23 @@ namespace CansInnov.Application.Features.Ateliers.Queries
 
         public async Task<List<AtelierDto>> Handle(GetAtelierByEventIdQuery request, CancellationToken cancellationToken)
         {
-            List<Atelier> ateliers = await _dbContext.Atelier
-                .Where(x => x.EventId == request.EventId)
-                .ToListAsync(cancellationToken);
+            List<AtelierDto> ateliers = await Task.Run(() =>
+            {
+                return _dbContext.Ateliers
+                    .Include(x => x.Participants)
+                    .Where(x => x.EventId == request.EventId)
+                    .Select(Selector)
+                    .ToList();
+            });
 
-            return _mapper.Map<List<AtelierDto>>(ateliers);
+            return ateliers;
+        }
+
+        private AtelierDto Selector(Atelier atelier)
+        {
+            AtelierDto atelierDto = _mapper.Map<AtelierDto>(atelier);
+            atelierDto.Participants = atelier.Participants.Select(x => x.Matricule).ToList();
+            return atelierDto;
         }
     }
 }

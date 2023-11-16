@@ -8,5 +8,6 @@ namespace CansInnov.Application.Features.Ateliers.Dtos
 {
     public class AtelierDto : BaseAtelier
     {
+        public List<string> Participants { get; set; }
     }
 }
