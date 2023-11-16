@@ -9,11 +9,11 @@
 }
 else
 {
-    <AuthorizeView Roles="Admin">
+    @*<AuthorizeView Roles="Admin">*@
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.End" Wrap="FlexWrap.Wrap">
             <RadzenButton Click="CreateEventClicked" Text="Créer évènement" />
         </RadzenStack>
-    </AuthorizeView>
+    @*</AuthorizeView>*@
     <RadzenRow class="rz-text-align-center" Gap="1rem">
         @foreach (var evt in Events)
         {

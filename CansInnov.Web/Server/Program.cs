@@ -22,7 +22,7 @@ builder.Services.AddApplicationServices();
 //});
 //.AddXConnect(OpenIdConnectDefaults.AuthenticationScheme, builder.Configuration);
 
-builder.Services.AddScoped<XConnectMidlleware>();
+//builder.Services.AddScoped<XConnectMidlleware>();
 
 var app = builder.Build();
 
@@ -45,7 +45,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseMiddleware<XConnectMidlleware>();
+//app.UseMiddleware<XConnectMidlleware>();
 //app.UseAuthentication();
 //app.UseAuthorization();
 
@@ -53,6 +53,6 @@ app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
+//app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.Run();

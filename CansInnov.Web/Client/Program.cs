@@ -5,6 +5,7 @@ using CansInnov.Client;
 using CansInnov.Persistence;
 using Radzen;
 using Microsoft.AspNetCore.Components.Authorization;
+using CansInnov.Client.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,6 +19,7 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<AuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider, HostAuthenticationStateProvider>();
+
 
 await builder.Build().RunAsync();
