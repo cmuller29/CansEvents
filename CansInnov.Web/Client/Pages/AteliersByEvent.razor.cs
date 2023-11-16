@@ -60,7 +60,11 @@ namespace CansInnov.Client.Pages
 
         public void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<AtelierDto> args)
         {
-            if (args.Data.Participants.Any(x => x == User.UserMatricule))
+            if (args.Data.Participants.Count == args.Data.NbParticipantMax)
+            {
+                args.Attributes["style"] = "background: grey";
+            }
+            else if (args.Data.Participants.Any(x => x == User.UserMatricule))
             {
                 args.Attributes["style"] = "background: red";
             }

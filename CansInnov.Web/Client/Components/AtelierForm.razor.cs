@@ -35,6 +35,16 @@ namespace CansInnov.Client.Components
 
         public bool DeleteButtonDisabled => !ExistingAtelier;
 
+        public bool SubscribeDisabled => 
+            Atelier.Participants.Count >= Atelier.NbParticipantMax || Atelier.Participants.Any(x => x == User?.UserMatricule);
+
+        public UserInfo User { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            User = await LocalStorage.GetItemAsync<UserInfo>("currentuser");
+        }
+
         public async void Submit(AtelierDto args)
         {
             HttpResponseMessage response;
@@ -71,11 +81,10 @@ namespace CansInnov.Client.Components
 
         public async void Subscribe()
         {
-            UserInfo user = await LocalStorage.GetItemAsync<UserInfo>("currentuser");
             HttpResponseMessage response = await Http.PostAsJsonAsync("api/Atelier/subscribe", new SubscribeToAtelierCommand
             {
                 AtelierId = Atelier.Id,
-                Matricule = user.UserMatricule
+                Matricule = User.UserMatricule
             });
 
             if (response.IsSuccessStatusCode)
