@@ -5,15 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CansInnov.Domain.Common;
 
-namespace CansInnov.Persistence.Models
+namespace CansInnov.Domain.Entities
 {
-    public class Event
+    public class Event : AuditableEntity
     {
-        public Guid Id { get; set; }
         public string Titre { get; set; }
         public string Description { get; set; }
-        public string Visuel { get; set; }
+        public string? Visuel { get; set; }
         public DateTime DateDebut { get; set; }
         public DateTime DateFin { get; set; }
 

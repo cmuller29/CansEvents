@@ -17,4 +17,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CansInnov.Application\CansInnov.Application.csproj" />
+    <ProjectReference Include="..\CansInnov.Domain\CansInnov.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

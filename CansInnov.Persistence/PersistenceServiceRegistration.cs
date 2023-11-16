@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CansInnov.Application.Contracts.Persistence;
+using CansInnov.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +28,9 @@ namespace CansInnov.Persistence
                        options.UseSqlServer(configuration.GetConnectionString("EventsConnectionString"))
                    );
             }
+
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
+
             return services;
         }
     }

@@ -4,33 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using CansInnov.Persistence;
-using CansInnov.Persistence.Models;
+using CansInnov.Application.Contracts.Persistence;
+using CansInnov.Domain.Entities;
 using MediatR;
 
 namespace CansInnov.Application.Features.Events.Commands
 {
-    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand>
+    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Guid>
     {
-        private readonly CansEventsDbContext _dbContext;
+        private readonly IAsyncRepository<Event> _repository;
         private readonly IMapper _mapper;
         private readonly ValidatorHelper<CreateEventCommandValidator, CreateEventCommand> _validator;
 
-        public CreateEventCommandHandler(CansEventsDbContext dbContext, IMapper mapper,
+        public CreateEventCommandHandler(IAsyncRepository<Event> repository, IMapper mapper,
             ValidatorHelper<CreateEventCommandValidator, CreateEventCommand> validator)
         {
-            _dbContext = dbContext;
+            _repository = repository;
             _mapper = mapper;
             _validator = validator;
         }
 
-        public async Task Handle(CreateEventCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateEventCommand command, CancellationToken cancellationToken)
         {
             await _validator.ValidateAsync(command, cancellationToken);
 
             Event @event = _mapper.Map<Event>(command);
-            _dbContext.Events.Add(@event);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            @event = await _repository.AddAsync(@event, cancellationToken);
+
+            return @event.Id;
         }
     }
 }

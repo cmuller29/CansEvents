@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CansInnov.Persistence\CansInnov.Persistence.csproj" />
+    <ProjectReference Include="..\CansInnov.Domain\CansInnov.Domain.csproj" />
   </ItemGroup>
 
 </Project>

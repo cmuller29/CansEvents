@@ -4,30 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CansInnov.Application.Contracts.Persistence;
 using CansInnov.Application.Features.Ateliers.Dtos;
-using CansInnov.Persistence;
-using CansInnov.Persistence.Models;
+using CansInnov.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace CansInnov.Application.Features.Ateliers.Queries
 {
     public class GetAtelierByEventIdQueryHandler : IRequestHandler<GetAtelierByEventIdQuery, List<AtelierDto>>
     {
-        private readonly CansEventsDbContext _dbContext;
+        private readonly IAsyncRepository<Atelier> _repository;
         private readonly IMapper _mapper;
 
-        public GetAtelierByEventIdQueryHandler(CansEventsDbContext dbContext, IMapper mapper)
+        public GetAtelierByEventIdQueryHandler(IAsyncRepository<Atelier> repository, IMapper mapper)
         {
-            _dbContext = dbContext;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task<List<AtelierDto>> Handle(GetAtelierByEventIdQuery request, CancellationToken cancellationToken)
         {
-            List<Atelier> ateliers = await _dbContext.Atelier
-                .Where(x => x.EventId == request.EventId)
-                .ToListAsync(cancellationToken);
+            IReadOnlyList<Atelier> ateliers = await _repository
+                .ListAsync(x => x.EventId == request.EventId, cancellationToken);
 
             return _mapper.Map<List<AtelierDto>>(ateliers);
         }

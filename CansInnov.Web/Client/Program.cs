@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using CansInnov.Application;
 using CansInnov.Client;
-using CansInnov.Persistence;
 using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

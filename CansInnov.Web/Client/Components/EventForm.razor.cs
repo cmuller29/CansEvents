@@ -3,7 +3,6 @@ using System.Text;
 using AutoMapper;
 using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
-using CansInnov.Persistence.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Radzen;

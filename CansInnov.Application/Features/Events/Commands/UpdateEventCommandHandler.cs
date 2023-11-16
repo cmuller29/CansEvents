@@ -4,31 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CansInnov.Application.Contracts.Persistence;
 using CansInnov.Application.Exceptions;
-using CansInnov.Persistence;
-using CansInnov.Persistence.Models;
+using CansInnov.Domain.Entities;
 using MediatR;
 
 namespace CansInnov.Application.Features.Events.Commands
 {
     public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand>
     {
-        private readonly CansEventsDbContext _dbContext;
+        private readonly IAsyncRepository<Event> _repository;
         private readonly IMapper _mapper;
 
-        public UpdateEventCommandHandler(CansEventsDbContext dbContext, IMapper mapper)
+        public UpdateEventCommandHandler(IAsyncRepository<Event> repository, IMapper mapper)
         {
-            _dbContext = dbContext;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
-            Event @event = await _dbContext.Events.FindAsync(new object[] {request.Id}, cancellationToken)
+            Event @event = await _repository.GetByIdWithTrackingAsync(request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Event), request.Id);
 
             _mapper.Map(request, @event);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _repository.UpdateAsync(@event, cancellationToken);
         }
     }
 }

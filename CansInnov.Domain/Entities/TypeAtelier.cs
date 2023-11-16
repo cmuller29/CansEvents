@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CansInnov.Persistence.Models
+namespace CansInnov.Domain.Entities
 {
     public enum TypeAtelier
     {

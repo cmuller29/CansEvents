@@ -4,6 +4,7 @@ using CansInnov.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CansInnov.Persistence.Migrations
 {
     [DbContext(typeof(CansEventsDbContext))]
-    partial class CansEventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115221246_AddAudit")]
+    partial class AddAudit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,6 @@ namespace CansInnov.Persistence.Migrations
                         .HasColumnName("ID_ATELIER");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -102,32 +103,17 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7ad0a37-9e9d-45af-9f05-c9d94ec4be0f"),
-                            CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1336),
-                            DateDebut = new DateTime(2023, 11, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateFin = new DateTime(2023, 11, 20, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("78e80c46-3322-4d34-b128-ecb325092241"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateDebut = new DateTime(2023, 10, 15, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateFin = new DateTime(2023, 10, 15, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "DEscription",
-                            EventId = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
+                            EventId = new Guid("69105ac7-4c60-4c90-b143-eff304556c44"),
+                            LienReunion = "lien",
                             Lieu = "lieu",
                             NbParticipantMax = 10,
                             NomIntervenant = "Intervenant",
-                            Titre = "Atelier 1",
-                            Type = "Presentiel"
-                        },
-                        new
-                        {
-                            Id = new Guid("4cb13b3c-8d81-461b-9193-90fa108293a8"),
-                            CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1349),
-                            DateDebut = new DateTime(2023, 11, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateFin = new DateTime(2023, 11, 20, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "DEscription",
-                            EventId = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
-                            Lieu = "lieu",
-                            NbParticipantMax = 10,
-                            NomIntervenant = "Intervenant",
-                            Titre = "Atelier 2",
+                            Titre = "Titre",
                             Type = "Presentiel"
                         });
                 });
@@ -140,7 +126,6 @@ namespace CansInnov.Persistence.Migrations
                         .HasColumnName("ID_EVENEMENT");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -185,14 +170,12 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
-                            CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1203),
-                            DateDebut = new DateTime(2023, 11, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateFin = new DateTime(2023, 11, 24, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = new Guid("69105ac7-4c60-4c90-b143-eff304556c44"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateDebut = new DateTime(2023, 9, 15, 23, 12, 45, 757, DateTimeKind.Local).AddTicks(7126),
+                            DateFin = new DateTime(2023, 10, 15, 23, 12, 45, 757, DateTimeKind.Local).AddTicks(7163),
                             Description = "DEscription",
-                            Titre = "Titre",
-                            Visuel = "https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                            Titre = "Titre"
                         });
                 });
 

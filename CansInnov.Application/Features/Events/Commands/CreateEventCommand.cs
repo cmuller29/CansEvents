@@ -7,7 +7,7 @@ using MediatR;
 
 namespace CansInnov.Application.Features.Events.Commands
 {
-    public class CreateEventCommand : BaseEvent, IRequest
+    public class CreateEventCommand : BaseEvent, IRequest<Guid>
     {
     }
 }

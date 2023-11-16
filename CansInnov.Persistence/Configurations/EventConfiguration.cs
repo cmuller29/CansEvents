@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CansInnov.Persistence.Models;
+using CansInnov.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CansInnov.Persistence.Configurations

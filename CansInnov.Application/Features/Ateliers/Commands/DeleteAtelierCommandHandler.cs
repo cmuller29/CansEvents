@@ -5,30 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CansInnov.Application.Exceptions;
-using CansInnov.Persistence.Models;
-using CansInnov.Persistence;
 using MediatR;
+using CansInnov.Application.Contracts.Persistence;
+using CansInnov.Domain.Entities;
 
 namespace CansInnov.Application.Features.Ateliers.Commands
 {
     public class DeleteAtelierCommandHandler : IRequestHandler<DeleteAtelierCommand>
     {
-        private readonly CansEventsDbContext _dbContext;
+        private readonly IAsyncRepository<Atelier> _repository;
         private readonly IMapper _mapper;
 
-        public DeleteAtelierCommandHandler(CansEventsDbContext dbContext, IMapper mapper)
+        public DeleteAtelierCommandHandler(IAsyncRepository<Atelier> repository, IMapper mapper)
         {
-            _dbContext = dbContext;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task Handle(DeleteAtelierCommand request, CancellationToken cancellationToken)
         {
-            Atelier atelier = await _dbContext.Atelier.FindAsync(new object[] { request.Id }, cancellationToken)
+            Atelier atelier = await _repository.GetByIdAsync(request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Atelier), request.Id);
 
-            _dbContext.Atelier.Remove(atelier);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _repository.DeleteAsync(atelier, cancellationToken);
         }
     }
 }

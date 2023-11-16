@@ -4,29 +4,28 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CansInnov.Application.Contracts.Persistence;
 using CansInnov.Application.Exceptions;
-using CansInnov.Persistence;
-using CansInnov.Persistence.Models;
+using CansInnov.Domain.Entities;
 using MediatR;
 
 namespace CansInnov.Application.Features.Events.Commands
 {
     public class DeleteEventCommandHandler : IRequestHandler<DeleteEventCommand>
     {
-        private readonly CansEventsDbContext _dbContext;
+        private readonly IAsyncRepository<Event> _repository;
 
-        public DeleteEventCommandHandler(CansEventsDbContext dbContext)
+        public DeleteEventCommandHandler(IAsyncRepository<Event> repository)
         {
-            _dbContext = dbContext;
+            _repository = repository;
         }
 
         public async Task Handle(DeleteEventCommand request, CancellationToken cancellationToken)
         {
-            Event @event = await _dbContext.Events.FindAsync(new object[] { request.Id }, cancellationToken)
+            Event @event = await _repository.GetByIdAsync(request.Id, cancellationToken)
                 ?? throw new NotFoundException(nameof(Event), request.Id);
 
-            _dbContext.Events.Remove(@event);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _repository.DeleteAsync(@event, cancellationToken);
         }
     }
 }

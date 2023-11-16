@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.ResponseCompression;
 using CansInnov.Persistence;
 using CansInnov.Application;
 using CansInnov.Server.Middlewares;
+using CansInnov.Application.Contracts;
+using CansInnov.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices();

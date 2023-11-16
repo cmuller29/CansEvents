@@ -8,7 +8,7 @@ using CansInnov.Application.Features.Ateliers.Commands;
 using CansInnov.Application.Features.Ateliers.Dtos;
 using CansInnov.Application.Features.Events.Commands;
 using CansInnov.Application.Features.Events.Dtos;
-using CansInnov.Persistence.Models;
+using CansInnov.Domain.Entities;
 
 namespace CansInnov.Application.Profiles
 {

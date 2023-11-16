@@ -4,6 +4,7 @@ using CansInnov.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CansInnov.Persistence.Migrations
 {
     [DbContext(typeof(CansEventsDbContext))]
-    partial class CansEventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115222002_AddAudit3")]
+    partial class AddAudit3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,13 +104,13 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7ad0a37-9e9d-45af-9f05-c9d94ec4be0f"),
+                            Id = new Guid("8116ce46-ee6c-44fc-bf82-327e2d533319"),
                             CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1336),
+                            CreatedDate = new DateTime(2023, 11, 15, 23, 20, 2, 312, DateTimeKind.Local).AddTicks(8887),
                             DateDebut = new DateTime(2023, 11, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DateFin = new DateTime(2023, 11, 20, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "DEscription",
-                            EventId = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
+                            EventId = new Guid("5f3899b9-ebe7-4479-b6f4-921858a50fc3"),
                             Lieu = "lieu",
                             NbParticipantMax = 10,
                             NomIntervenant = "Intervenant",
@@ -117,13 +119,13 @@ namespace CansInnov.Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4cb13b3c-8d81-461b-9193-90fa108293a8"),
+                            Id = new Guid("a1f76469-79fe-455d-8ce2-952938561e38"),
                             CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1349),
-                            DateDebut = new DateTime(2023, 11, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateFin = new DateTime(2023, 11, 20, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedDate = new DateTime(2023, 11, 15, 23, 20, 2, 312, DateTimeKind.Local).AddTicks(8900),
+                            DateDebut = new DateTime(2023, 11, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateFin = new DateTime(2023, 11, 20, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "DEscription",
-                            EventId = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
+                            EventId = new Guid("5f3899b9-ebe7-4479-b6f4-921858a50fc3"),
                             Lieu = "lieu",
                             NbParticipantMax = 10,
                             NomIntervenant = "Intervenant",
@@ -185,14 +187,13 @@ namespace CansInnov.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("62ed6340-8786-41ce-8705-7742d5bee1f9"),
+                            Id = new Guid("5f3899b9-ebe7-4479-b6f4-921858a50fc3"),
                             CreatedBy = "cmuller",
-                            CreatedDate = new DateTime(2023, 11, 15, 23, 22, 36, 980, DateTimeKind.Local).AddTicks(1203),
+                            CreatedDate = new DateTime(2023, 11, 15, 23, 20, 2, 312, DateTimeKind.Local).AddTicks(8751),
                             DateDebut = new DateTime(2023, 11, 20, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DateFin = new DateTime(2023, 11, 24, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "DEscription",
-                            Titre = "Titre",
-                            Visuel = "https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                            Titre = "Titre"
                         });
                 });
 

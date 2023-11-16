@@ -3,12 +3,8 @@
 
 <PageTitle>Ateliers</PageTitle>
 
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.End" Wrap="FlexWrap.Wrap">
-    <RadzenButton Click="CreateAtelierClicked" Text="Créer atelier" />
-</RadzenStack>
-<RadzenScheduler TItem="AtelierDto" Data="@Ateliers" StartProperty="DateDebut"
-                 EndProperty="DateFin" TextProperty="Titre"
-                 AppointmentSelect=@OnAppointmentSelect>
+<RadzenScheduler TItem="AtelierDto" Data="@Ateliers" StartProperty="DateDebut" EndProperty="DateFin" TextProperty="Titre"
+                 Date=@EventStartDate AppointmentSelect=@OnAppointmentSelect>
     <Template Context="data">
         <strong>@data.Titre</strong>
     </Template>
@@ -16,3 +12,7 @@
         <RadzenWeekView />
     </ChildContent>
 </RadzenScheduler>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.End" Wrap="FlexWrap.Wrap"
+    class="rz-mt-8">
+    <RadzenButton Click="CreateAtelierClicked" Text="Créer atelier" />
+</RadzenStack>

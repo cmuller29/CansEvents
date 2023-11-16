@@ -4,6 +4,7 @@ using CansInnov.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CansInnov.Persistence.Migrations
 {
     [DbContext(typeof(CansEventsDbContext))]
-    partial class CansEventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115222237_AddAudit4")]
+    partial class AddAudit4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

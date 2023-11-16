@@ -5,7 +5,6 @@ using BlazorApp1.Shared;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Application.Features.Events.Queries;
 using CansInnov.Client.Components;
-using CansInnov.Persistence.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 

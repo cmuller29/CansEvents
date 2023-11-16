@@ -2,7 +2,6 @@
 using CansInnov.Application.Features.Ateliers.Dtos;
 using CansInnov.Application.Features.Events.Dtos;
 using CansInnov.Client.Components;
-using CansInnov.Persistence.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -30,6 +29,8 @@ namespace CansInnov.Client.Pages
                 StateHasChanged();
             }
         }
+
+        public DateTime EventStartDate => _ateliers?.OrderBy(x => x.DateDebut)?.FirstOrDefault()?.DateDebut ?? DateTime.Now;
 
         protected override async Task OnInitializedAsync()
         {
